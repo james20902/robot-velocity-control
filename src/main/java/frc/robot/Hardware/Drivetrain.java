@@ -121,7 +121,7 @@ public class Drivetrain implements Subsystem {
                 encoderToMeters(frontRight.getSelectedSensorPosition()));
     }
 
-    public double encoderToMeters(double encoderUnits) {
+    private double encoderToMeters(double encoderUnits) {
         //convert ticks to revolutions.
         //if we go 4096 ticks, we're going one revolution.
         double TicksToRevolutions = encoderUnits / ENCODER_CPR;
@@ -139,8 +139,8 @@ public class Drivetrain implements Subsystem {
         setWheelSpeeds(kinematics.toWheelSpeeds(chassis));
     }
 
-    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-        return currentVelocity;
+    public ChassisSpeeds getChassisSpeeds() {
+        return kinematics.toChassisSpeeds(currentVelocity);
     }
 
     public void setWheelSpeeds(DifferentialDriveWheelSpeeds target) {

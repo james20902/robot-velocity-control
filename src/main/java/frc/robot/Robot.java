@@ -5,6 +5,8 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -44,10 +46,13 @@ public class Robot extends TimedRobot {
     }
     @Override
     public void autonomousInit() {
-        Trajectory trajectory = new Trajectory();
-
         CommandScheduler.getInstance().enable();
-        CommandScheduler.getInstance().schedule(new DriveTrajectory(Drive, trajectory));
+        CommandScheduler.getInstance().schedule(
+                new DriveTrajectory(Drive,
+                        PathPlanner.loadPath("example",
+                                new PathConstraints(4, 3))
+                )
+        );
     }
     @Override
     public void autonomousPeriodic() {}
